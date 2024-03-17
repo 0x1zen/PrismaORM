@@ -3,16 +3,39 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 
-async function getUser(username: string) {
-  const res=await prisma.user.findUnique({
+async function getTodos(userId:number){
+  // const response=await prisma.todo.create({
+  //   data:{
+  //     title:"Go to gym",
+  //     description:"Go at 7pm",
+  //     userId:userId
+  //   }
+  // })
+  const response=await prisma.todo.findMany({
     where:{
-        email:username
+      userId:userId
+    },
+    select:{
+      id:true,
+      title:true,
+      description:true,
+      user:true
     }
   })
-  console.log(res);
+  console.log(response);
 }
+getTodos(1);
 
-getUser("raj@gmail.com");
+// async function getUser(username: string) {
+//   const res=await prisma.user.findUnique({
+//     where:{
+//         email:username
+//     }
+//   })
+//   console.log(res);
+// }
+
+// getUser("raj@gmail.com");
 
 // interface UpdateParams {
 //     firstName: string;

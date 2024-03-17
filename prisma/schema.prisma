@@ -18,12 +18,15 @@ model User{
   email String @unique
   firstName String
   lastName String
-  password String 
-
+  password String
+  username String? @unique   
+  todos Todo[]
 }
-model Todo{
-  id Int @id @default(autoincrement())
-  title String
-  done Boolean @default(false)
+model Todo {
+  id          Int      @id @default(autoincrement())
+  title       String
+  done        Boolean  @default(false)
   description String?
+  userId      Int
+  user        User     @relation(fields: [userId], references: [id])
 }
